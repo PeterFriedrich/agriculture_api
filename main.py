@@ -23,6 +23,7 @@ from typing import Optional
 
 from fastapi import FastAPI # api class
 from pydantic import BaseModel
+from calculator import calculate
 
 # pydantic for data models/shapes
 class Item(BaseModel):
@@ -50,6 +51,11 @@ class User_input(BaseModel):
     y : float
 
 app = FastAPI() # instance of api class
+
+@app.post("/calculate")
+def operate(input:User_input):
+    result = calculate(input.operation, input.x, input.y)
+    return result
 
 # path operation decorator, modifies root, notes it as get
 @app.get("/")
