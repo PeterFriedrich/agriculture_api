@@ -24,11 +24,30 @@ from typing import Optional
 from fastapi import FastAPI # api class
 from pydantic import BaseModel
 
+# pydantic for data models/shapes
 class Item(BaseModel):
     name: str
     description: Optional[str] = None
     prince: float
     tax: Optional[float] = None
+
+"""
+{
+    "name": "Foo",
+    "description": "An optional description", (dft None)
+    "price": 45.2,
+    "tax": 3.5 (dft None)
+}
+or
+{
+    "name": "Foo",
+    "price": 45.2
+}
+"""
+class User_input(BaseModel):
+    operation: str
+    x : float
+    y : float
 
 app = FastAPI() # instance of api class
 
@@ -39,6 +58,10 @@ async def root(): # makes async func
 
 @app.post("/items/")
 async def create_item(item: Item):
+    # Func type hint, creates instance of "Item"
+    # -> FastAPI will read body, convert types
+    # validate, return error if inv, give data
+    # param item, generate json schema defn
     return item
 
 # value of path param item_id is passed (/items/foo)
