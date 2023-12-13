@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  fastapi:
+    build:
+      context: ./docker/fastapi
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    command: ["uvicorn", "main:app", "--host=0.0.0.0", "--reload"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            -capabilities: [gpu]
+    volumes:
+      - ./api:/app
+    environment:
+      - AUTH_TOKEN
+    
+  streamlit:
+    build:
+      context: ./docker/streamlit
+      dockerfile: Dockerfile
+    ports:
+      - 8501:8501
+    command: ["streamlit", "run", "streamlit.py", "--server.baseUrlPath", "/app"]
+    volumes:
+      - ./app:/app
