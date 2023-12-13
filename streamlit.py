@@ -1,5 +1,7 @@
 """
-This streamlit thing is purely a front end, 
+This streamlit thing is purely a front end, you need to
+run this using streamlit run, separately from the
+uvicorn fastapi server.
 """
 import streamlit as st
 import json
