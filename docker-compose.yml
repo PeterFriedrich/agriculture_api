@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
-    command: ["uvicorn", "main:api", "--host=0.0.0.0", "--reload"]
+    command: ["uvicorn", "main:app", "--host=0.0.0.0", "--reload"]
     # deploy:
     #   resources:
     #     reservations:
@@ -15,8 +15,6 @@ services:
     #         -capabilities: [gpu]
     volumes:
       - ./api:/app
-    environment:
-      - AUTH_TOKEN
     
   streamlit:
     build:
