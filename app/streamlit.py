@@ -26,7 +26,7 @@ inputs = {"operation": option, "x": x, "y": y}
 # IMPORTANT something like this saves compute
 if st.button("Calculate"):
     # json.dumps converts the inputs dictionary to json
-    res = requests.post(url = "http://127.0.0.1:8000/calculate", data = json.dumps(inputs))
+    res = requests.post(url = "http://fastapi:8000/calculate", data = json.dumps(inputs))
 
     st.subheader(f"Response from API = {res.text}")
 
