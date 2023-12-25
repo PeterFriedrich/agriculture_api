@@ -8,11 +8,8 @@ services:
     ports:
       - 8000:8000
     command: ["uvicorn", "main:app", "--host=0.0.0.0", "--reload"]
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         -capabilities: [gpu]
+    networks:
+      - firstnetwork
     volumes:
       - ./api:/app
     
@@ -23,5 +20,10 @@ services:
     ports:
       - 8501:8501
     command: ["streamlit", "run", "streamlit.py", "--server.baseUrlPath", "/app"]
+    networks:
+      - firstnetwork
     volumes:
       - ./app:/app
+
+networks:
+  firstnetwork:
